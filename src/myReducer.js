@@ -1,5 +1,4 @@
-import React from 'react';
-import { ADD_FEATURES } from './myActions';
+import { ADD_FEATURES, REMOVE_FEATURES } from './myActions';
 
 const initialState = {
     additionalPrice: 0,
@@ -20,7 +19,7 @@ const initialState = {
 
 export const myReducer = (state = initialState, action) => {
     switch(action.type) {
-        case ADD_FEATURES:
+        case ADD_FEATURES: {
             return{
                 ...state,
                 car: {
@@ -29,16 +28,20 @@ export const myReducer = (state = initialState, action) => {
                     price: state.car.price + action.payload.price
                 }
             }
+        }
 
-            case ADD_FEATURES:
+            case REMOVE_FEATURES:{
                     return{
                         ...state,
                         car: {
                             ...state.car,
-                            features: [...state.car.features, action.payload],
-                            price: state.car.price + action.payload.price
+                            features: state.car.features.filter(feature => {
+                                return feature.id !== action.payload.id
+                            }),
+                            price: state.car.price - action.payload.price
                         }
                     }
+                }
         default: return state;
     }
 }
