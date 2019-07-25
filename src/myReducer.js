@@ -25,9 +25,20 @@ export const myReducer = (state = initialState, action) => {
                 ...state,
                 car: {
                     ...state.car,
-                    features: [...state.car.features, action.payload]
+                    features: [...state.car.features, action.payload],
+                    price: state.car.price + action.payload.price
                 }
             }
+
+            case ADD_FEATURES:
+                    return{
+                        ...state,
+                        car: {
+                            ...state.car,
+                            features: [...state.car.features, action.payload],
+                            price: state.car.price + action.payload.price
+                        }
+                    }
         default: return state;
     }
 }
